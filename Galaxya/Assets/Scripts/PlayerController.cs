@@ -11,7 +11,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float yLimit = 3.5f;
     [SerializeField] float positionPitchFactor = -5f;
     [SerializeField] float controlPitchFactor = -30f;
-    [SerializeField] float positionYawFactor = 5f;
+    [SerializeField] float positionYawFactor = 9f;
     [SerializeField] float controlRollFactor = -20f;
     float xThrow;
     float yThrow;
