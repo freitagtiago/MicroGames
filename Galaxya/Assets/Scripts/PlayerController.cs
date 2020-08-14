@@ -6,15 +6,22 @@ using UnityStandardAssets.CrossPlatformInput;
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] float speed = 4f;
-    [SerializeField] float xLimit = 5f;
-    [SerializeField] float yLimit = 3.5f;
+    [Header("General")]
+    [SerializeField] float controlSpeed = 4f;
+    [SerializeField] float xRange = 5f;
+    [SerializeField] float yRange = 3.5f;
+
+    [Header("Screen Parameters")]
     [SerializeField] float positionPitchFactor = -5f;
-    [SerializeField] float controlPitchFactor = -30f;
     [SerializeField] float positionYawFactor = 9f;
+    
+
+    [Header("Control Throw Based")]
+    [SerializeField] float controlPitchFactor = -30f;
     [SerializeField] float controlRollFactor = -20f;
     float xThrow;
     float yThrow;
+    bool isControlEnable = true;
     // Start is called before the first frame update
     void Start()
     {
@@ -24,8 +31,12 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        ProcessTranslation();
-        ProcessRotation();
+        if (isControlEnable)
+        {
+            ProcessTranslation();
+            ProcessRotation();
+        }
+        
     }
 
     private void ProcessRotation()
@@ -46,16 +57,20 @@ public class PlayerController : MonoBehaviour
     private Vector3 GetXPosition()
     {
         xThrow = CrossPlatformInputManager.GetAxis("Horizontal");
-        float xOffset = xThrow * speed * Time.deltaTime;
-        float clampedXPos = Mathf.Clamp(transform.localPosition.x + xOffset, xLimit * -1, xLimit);
+        float xOffset = xThrow * controlSpeed * Time.deltaTime;
+        float clampedXPos = Mathf.Clamp(transform.localPosition.x + xOffset, xRange * -1, xRange);
         return new Vector3(clampedXPos, transform.localPosition.y, transform.localPosition.z);
     }
 
     private Vector3 GetYPosition()
     {
         yThrow = CrossPlatformInputManager.GetAxis("Vertical");
-        float yOffset = yThrow * speed * Time.deltaTime;
-        float clampedYPos = Mathf.Clamp(transform.localPosition.y + yOffset, yLimit * -1, yLimit);
+        float yOffset = yThrow * controlSpeed * Time.deltaTime;
+        float clampedYPos = Mathf.Clamp(transform.localPosition.y + yOffset, yRange * -1, yRange);
         return new Vector3(transform.localPosition.x, clampedYPos, transform.localPosition.z);
+    }  
+    void OnPlayerDeath() //called by string reference
+    {
+        isControlEnable = false;
     }
 }
