@@ -22,11 +22,10 @@ public class PlayerController : MonoBehaviour
     float xThrow;
     float yThrow;
     bool isControlEnable = true;
+
+    [Header("Guns")]
+    [SerializeField] GameObject[] guns;
     // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
     // Update is called once per frame
     void Update()
@@ -35,8 +34,16 @@ public class PlayerController : MonoBehaviour
         {
             ProcessTranslation();
             ProcessRotation();
+            ProcessShooting();
         }
         
+    }
+
+    #region Movement
+    private void ProcessTranslation()
+    {
+        transform.localPosition = GetXPosition();
+        transform.localPosition = GetYPosition();
     }
 
     private void ProcessRotation()
@@ -45,13 +52,7 @@ public class PlayerController : MonoBehaviour
         float yaw = transform.localPosition.x * positionYawFactor;
         float roll = xThrow * controlRollFactor;
 
-        transform.localRotation = Quaternion.Euler(pitch,yaw,roll);
-    }
-
-    private void ProcessTranslation()
-    {
-        transform.localPosition = GetXPosition();
-        transform.localPosition = GetYPosition();
+        transform.localRotation = Quaternion.Euler(pitch, yaw, roll);
     }
 
     private Vector3 GetXPosition()
@@ -68,9 +69,34 @@ public class PlayerController : MonoBehaviour
         float yOffset = yThrow * controlSpeed * Time.deltaTime;
         float clampedYPos = Mathf.Clamp(transform.localPosition.y + yOffset, yRange * -1, yRange);
         return new Vector3(transform.localPosition.x, clampedYPos, transform.localPosition.z);
-    }  
+    }
+    #endregion
+
+    private void ProcessShooting()
+    {
+
+       if (CrossPlatformInputManager.GetButton("Shoot"))
+       {
+           GunHandler(true);
+       }
+       else
+       {
+           GunHandler(false);
+       }
+    }
+
+    private void GunHandler(bool state)
+    {
+        for (int i = 0; i < guns.Length; i++)
+        {
+            var emmissionModule = guns[i].GetComponent<ParticleSystem>().emission;
+            emmissionModule.enabled = state;
+        }
+    }
+
     void OnPlayerDeath() //called by string reference
     {
         isControlEnable = false;
+        GunHandler(false);
     }
 }

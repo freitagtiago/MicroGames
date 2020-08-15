@@ -92,6 +92,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 352242cbeddbfb94aa1dd26a525359de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  points: 2
+  health: 2
+  isDead: 0
   explosionPrefab: {fileID: 4768448668275458581, guid: 926cfdce84c441d4687dc143d67b7761,
     type: 3}
   parent: {fileID: 4109927819019092638}

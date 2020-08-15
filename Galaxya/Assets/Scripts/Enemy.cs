@@ -7,13 +7,19 @@ using UnityEngine.UI;
 
 public class Enemy : MonoBehaviour
 {
+    [SerializeField] int points = 1;
+    [SerializeField] int health = 1;
+    [SerializeField] bool isDead = false;
     [SerializeField] GameObject explosionPrefab = null;
     [SerializeField] Transform parent = null;
     Collider boxCollider;
+    UIHandler ui;
+
 
     private void Awake()
     {
-        AddNonTriggeredBoxCollider();    
+        AddNonTriggeredBoxCollider();
+        ui = FindObjectOfType<UIHandler>();
     }
 
     private void AddNonTriggeredBoxCollider()
@@ -25,17 +31,29 @@ public class Enemy : MonoBehaviour
 
     private void OnParticleCollision(GameObject other)
     {
-        UIHandler ui = GameObject.Find("Canvas").GetComponent<UIHandler>();
-        if(ui != null)
+        if (!isDead)
         {
-            ui.UpdateScore();
-        } else
-        {
-            print("Não achou UI");
+            ui.UpdateScore(points);
+            TakeDamage();
         }
-        GameObject explosionFx = Instantiate(explosionPrefab, transform.position,Quaternion.identity);
-        explosionFx.transform.parent = parent;
-        Debug.Log(explosionFx.transform.position);
-        Destroy(gameObject, 1f);
+    }
+
+    private void TakeDamage()
+    {
+        health--;
+        if(health <= 0)
+        {
+            isDead = true;
+            GameObject explosionFx = Instantiate(explosionPrefab, transform.position, Quaternion.identity);
+            //explosionFx.transform.parent = parent;
+            GetComponent<MeshRenderer>().gameObject.SetActive(false);
+            Destroy(explosionFx, 1f);
+            Destroy(gameObject, 1f);
+        }
+    }
+
+    public bool GetIsDead()
+    {
+        return isDead;
     }
 }

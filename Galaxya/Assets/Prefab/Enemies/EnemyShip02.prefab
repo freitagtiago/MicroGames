@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 6959300317102020265}
   - component: {fileID: 6968099673465423923}
   - component: {fileID: -8850315045563626321}
+  - component: {fileID: -516563893848049371}
   m_Layer: 0
   m_Name: EnemyShip02
   m_TagString: Enemy
@@ -92,6 +93,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 352242cbeddbfb94aa1dd26a525359de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  points: 3
+  health: 1
+  isDead: 0
   explosionPrefab: {fileID: 4768448668275458581, guid: 926cfdce84c441d4687dc143d67b7761,
     type: 3}
   parent: {fileID: 6984268448516927299}
+--- !u!114 &-516563893848049371
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6982274435503235827}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8eadbcba7a10e4f4d858177169855524, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  movementVector: {x: 0, y: 10, z: 10}
+  period: 6
