@@ -11,10 +11,12 @@ public class EnemyAI : MonoBehaviour
     float distanceToTarget = Mathf.Infinity;
     bool isProvoked = false;
     float attackRange = 2f;
+    Animator animator;
 
     private void Awake()
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
+        animator = GetComponent<Animator>();
     }
     void Start()
     {
@@ -32,17 +34,28 @@ public class EnemyAI : MonoBehaviour
         else if(distanceToTarget <= _chaseRange)
         {
             isProvoked = true;
-            navMeshAgent.SetDestination(_target.position);
-        } else
+            ChaseTarget();
+        }
+        else
         {
+            animator.SetTrigger("isIdle");
             isProvoked = false;
         }
         
     }
 
+    private void ChaseTarget()
+    {
+        animator.SetBool("isAttacking", false);
+        animator.SetTrigger("isMoving");
+        navMeshAgent.SetDestination(_target.position);
+    }
+
     private void Attack()
     {
+        animator.SetBool("isAttacking",true);
         Debug.Log("Attacking");
+
     }
 
     private void OnDrawGizmos()

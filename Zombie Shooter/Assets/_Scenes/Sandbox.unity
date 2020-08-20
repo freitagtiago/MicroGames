@@ -628,6 +628,12 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 973405531}
   m_PrefabAsset: {fileID: 0}
+--- !u!198 &991524022 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 638837170240439927, guid: be3bfda8a86408645a03d79063c1f1d4,
+    type: 3}
+  m_PrefabInstance: {fileID: 3606673053392783763}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1081836579
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1453,6 +1459,17 @@ PrefabInstance:
       propertyPath: _fpCamera
       value: 
       objectReference: {fileID: 1735804373}
+    - target: {fileID: 8764987557364093850, guid: be3bfda8a86408645a03d79063c1f1d4,
+        type: 3}
+      propertyPath: _muzzleFlashPrefab
+      value: 
+      objectReference: {fileID: 991524022}
+    - target: {fileID: 8764987557364093850, guid: be3bfda8a86408645a03d79063c1f1d4,
+        type: 3}
+      propertyPath: _hitEffectPrefab
+      value: 
+      objectReference: {fileID: 4152622761522377005, guid: df8a3e113fa289b44b5ecc3603af5cb0,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: be3bfda8a86408645a03d79063c1f1d4, type: 3}
 --- !u!1001 &3784225035904680487
@@ -1467,6 +1484,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy
       objectReference: {fileID: 0}
+    - target: {fileID: 867281695677290136, guid: 2e70d53e2daf4324f80909ccdf75d2f0,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: d13eaf2c71bac5c4689d3c089e9c3718, type: 2}
     - target: {fileID: 948352887788652057, guid: 2e70d53e2daf4324f80909ccdf75d2f0,
         type: 3}
       propertyPath: _target
