@@ -88,6 +88,7 @@ namespace UnityStandardAssets.CrossPlatformInput
         {
             foreach (Transform t in transform)
             {
+                if (t == null) continue;
                 t.gameObject.SetActive(enabled);
             }
         }
